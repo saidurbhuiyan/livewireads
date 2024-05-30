@@ -1,0 +1,83 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Fortify\TwoFactorAuthenticatable;
+use Laravel\Jetstream\HasProfilePhoto;
+use Spatie\Permission\Traits\HasRoles;
+
+class User extends Authenticatable implements MustVerifyEmail
+{
+    use HasRoles, HasFactory, HasProfilePhoto, Notifiable, TwoFactorAuthenticatable;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
+    protected $fillable = [
+        'name',
+        'username',
+        'email',
+        'password',
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+        'two_factor_recovery_codes',
+        'two_factor_secret',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'profile_photo_url',
+    ];
+
+    public function balance(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Balance::class, 'user_id');
+    }
+
+    public function advertisement(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Advertisement::class,'user_id');
+    }
+
+    public function website(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Website::class,'user_id');
+    }
+
+    public function network_user(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(NetworkUser::class,'user_id');
+    }
+    public function login(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(LoginHistory::class,'user_id');
+    }
+
+}
