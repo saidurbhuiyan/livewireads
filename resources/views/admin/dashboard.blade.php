@@ -6,6 +6,11 @@
     </x-slot>
 
     <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
+        <x-card-section>
+            <x-slot name="content">
+                @livewire('admin.dashboard-statistics')
 
+            </x-slot>
+        </x-card-section>
     </div>
 </x-admin-layout>
