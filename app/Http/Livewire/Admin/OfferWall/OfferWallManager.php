@@ -27,21 +27,8 @@ class OfferWallManager extends Component
      */
     public bool $confirmingOfferWallDelete = false;
 
-    public array $readableStatus = [];
     public int $offerWallId;
 
-    /**
-     * Mount the component.
-     *
-     * @return void
-     */
-    public function mount(): void
-    {
-        $this->readableStatus = [
-            0 => ['text' => 'Enable', 'color' => 'green'],
-            1 => ['text' => 'Disable', 'color' => 'red'],
-        ];
-    }
 
     /**
      * Render the offer wall manager.

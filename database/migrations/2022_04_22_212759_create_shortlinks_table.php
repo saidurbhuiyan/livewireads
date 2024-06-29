@@ -23,7 +23,7 @@ return new class extends Migration
             $table->unsignedDecimal('actual_cpm',4,2);
             $table->unsignedTinyInteger('priority')->default(0)->comment('0 to 100');
             $table->unsignedInteger('time');
-            $table->boolean('status')->default(false)->comment('0 = disable, 1 = enable');
+            $table->boolean('is_enable')->default(false);
             $table->text('disable_reason')->nullable();
             $table->string('tag')->nullable()->comment('hot, pop, adult');
             $table->timestamps();

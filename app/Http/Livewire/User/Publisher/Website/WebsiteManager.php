@@ -19,7 +19,6 @@ class WebsiteManager extends Component
 
     public array $read_able_status;
     public array $domain_protocols;
-    public array $is_verified;
 
     /**
      * Mount the component.
@@ -30,7 +29,6 @@ class WebsiteManager extends Component
         $websiteClass = app(WebsiteClass::class);
         $this->read_able_status = $websiteClass->ReadAbleStatus();
         $this->domain_protocols = $websiteClass->domainProtocols();
-        $this->is_verified = $websiteClass->isVerified();
     }
 
     /**

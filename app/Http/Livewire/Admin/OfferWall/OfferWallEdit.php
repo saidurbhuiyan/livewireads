@@ -14,7 +14,7 @@ class OfferWallEdit extends Component
     public ?string $api_key = null;
     public ?int $priority = null;
     public ?int $security_risk = null;
-    public int $status = 0;
+    public bool $is_enable = false;
     public ?string $frame_url = null;
 
     public int $offerWallId;
@@ -35,7 +35,7 @@ class OfferWallEdit extends Component
         $this->api_key = $this->offerWallData->api_key;
         $this->priority = $this->offerWallData->priority;
         $this->security_risk = $this->offerWallData->security_risk;
-        $this->status = $this->offerWallData->status;
+        $this->is_enable = $this->offerWallData->is_enable;
         $this->frame_url = $this->offerWallData->frame_url;
     }
 
@@ -52,7 +52,7 @@ class OfferWallEdit extends Component
             'api_key' => 'nullable|alpha_num',
             'priority' => 'required|integer|between:10,100',
             'security_risk' => 'required|integer|between:0,100',
-            'status' => 'required|boolean',
+            'is_enable' => 'required|boolean',
             'frame_url' => 'nullable|string|url',
         ];
     }
@@ -73,7 +73,7 @@ class OfferWallEdit extends Component
             'api_key' => $this->api_key,
             'priority' => $this->priority,
             'security_risk' => $this->security_risk,
-            'status' => $this->status,
+            'is_enable' => $this->is_enable,
             'frame_url' => $this->frame_url,
         ]);
 

@@ -5,16 +5,17 @@ namespace App\Http\Livewire\User\Publisher\App;
 use App\Libraries\AppClass;
 use App\Models\SiteApp;
 use Exception;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class AppCreate extends Component
 {
-    public int $site_name = 0;
+    public ?int $site_name = null;
     public ?string $currency_name = null;
     public ?float $conversion_rate = null;
-    public bool $allow_decimal = false;
+    public bool $is_allow_decimal = false;
     public ?string $postback_url = null;
     public string $secret_key;
     public object $site_name_data;
@@ -38,11 +39,11 @@ class AppCreate extends Component
     protected function rules(): array
     {
         return [
-            'site_name' => 'required|integer|unique:site_apps,site_id|exists:websites,id,user_id,'.Auth::id(),
+            'site_name' => 'required|integer|unique:site_apps,site_id|'.Rule::exists('websites', 'id')->where(fn(Builder $query)=> $query->where('user_id', Auth()->user()->id)),
             'currency_name' => 'required|string',
             'conversion_rate' => 'required|numeric|gt:0',
             'postback_url' => 'required|url',
-            'allow_decimal' => 'required|boolean',
+            'is_allow_decimal' => 'required|boolean',
         ];
     }
 
@@ -60,7 +61,7 @@ class AppCreate extends Component
             'site_id' => $this->site_name,
             'currency_name' => $this->currency_name,
             'conversion_rate' => $this->conversion_rate,
-            'allow_decimal' => $this->allow_decimal,
+            'is_allow_decimal' => $this->is_allow_decimal,
             'postback_url' => $this->postback_url,
             'private_key' => $this->secret_key,
             'public_key' => bin2hex(random_bytes(15)),

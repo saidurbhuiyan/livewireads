@@ -18,7 +18,11 @@ class Offerwall extends Model
         'priority',
         'security_risk',
         'frame_url',
-        'status',
+        'is_enable',
+    ];
+
+    protected $casts = [
+        'is_enable' => 'boolean',
     ];
 
 

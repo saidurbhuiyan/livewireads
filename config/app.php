@@ -170,7 +170,6 @@ return [
 
         Propaganistas\LaravelDisposableEmail\DisposableEmailServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
-        Spatie\LaravelSettings\LaravelSettingsServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
 
         /*

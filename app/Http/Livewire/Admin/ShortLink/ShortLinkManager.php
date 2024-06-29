@@ -20,18 +20,6 @@ class ShortLinkManager extends Component
     ];
 
     /**
-     * Mount the component.
-     * @return void
-     */
-    public function mount(): void
-    {
-        $this->readable_status = [
-            0 => ['text' => 'Enable', 'color' => 'green'],
-            1 => ['text' => 'Disable', 'color' => 'red'],
-        ];
-    }
-
-    /**
      * Render the component.
      * @return View
      */

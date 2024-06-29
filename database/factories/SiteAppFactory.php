@@ -25,7 +25,7 @@ class SiteAppFactory extends Factory
      * @return array<string, mixed>
      * @throws \Exception
      */
-    #[ArrayShape(['site_id' => "int", 'public_key' => "string", 'private_key' => "string", 'currency_name' => "string", 'conversion_rate' => "string", 'allow_decimal' => "int", 'postback_url' => "string"])] public function definition(): array
+    public function definition(): array
     {
         return [
             'site_id' => random_int(1,100),
@@ -33,7 +33,7 @@ class SiteAppFactory extends Factory
             'private_key'=> $this->faker->sha256,
             'currency_name' => $this->faker->currencyCode(),
             'conversion_rate' => $this->faker->buildingNumber(),
-            'allow_decimal' => random_int(0,1),
+            'is_allow_decimal' => $this->faker->boolean(),
             'postback_url' => $this->faker->url(),
         ];
     }

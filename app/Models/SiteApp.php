@@ -17,8 +17,12 @@ class SiteApp extends Model
         'private_key',
         'currency_name',
         'conversion_rate',
-        'allow_decimal',
+        'is_allow_decimal',
         'postback_url',
+    ];
+
+    protected $casts = [
+        'is_allow_decimal' => 'boolean',
     ];
 
     public function website(): BelongsTo

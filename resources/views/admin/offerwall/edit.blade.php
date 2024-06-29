@@ -9,7 +9,7 @@
     </x-slot>
 
     <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-        @livewire('admin.offerwall.offerwall-edit', ['id' => $offer_wall_id])
+        @livewire('admin.offer-wall.offer-wall-edit', ['id' => $offer_wall_id])
     </div>
 
 </x-admin-layout>

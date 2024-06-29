@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('private_key')->unique();
             $table->string('currency_name');
             $table->decimal('conversion_rate')->default(1)->comment('1 usd to currency');
-            $table->boolean('allow_decimal')->default(true)->comment('0 = no, 1 =  yes');
+            $table->boolean('is_allow_decimal')->default(true);
             $table->longText('postback_url');
             $table->timestamps();
             $table->foreign('site_id')->references('id')->on('websites')

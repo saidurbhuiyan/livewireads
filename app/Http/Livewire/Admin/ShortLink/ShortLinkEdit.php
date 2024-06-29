@@ -17,7 +17,7 @@ class ShortLinkEdit extends Component
     public ?float $actual_cpm = null;
     public ?int $priority = null;
     public ?int $time = null;
-    public int $status = 0;
+    public bool $is_enable = false;
     public ?string $disable_reason = null;
     public array $tag = [
         'hot' => false,
@@ -44,7 +44,7 @@ class ShortLinkEdit extends Component
         $this->actual_cpm = $this->short_link_data->actual_cpm;
         $this->priority = $this->short_link_data->priority;
         $this->time = $this->short_link_data->time;
-        $this->status = $this->short_link_data->status;
+        $this->is_enable = $this->short_link_data->is_enable;
         $this->disable_reason = $this->short_link_data->disable_reason;
         $this->tag = !empty($this->short_link_data->tag) ? unserialize($this->short_link_data->tag, ['allowed_classes' => false]) : $this->tag;
     }
@@ -68,7 +68,7 @@ class ShortLinkEdit extends Component
             'actual_cpm' => 'required|numeric|gt:0',
             'priority' => 'required|integer|gte:10|lte:100',
             'time' => 'required|integer|gt:0',
-            'status' => 'required|boolean',
+            'is_enable' => 'required|boolean',
             'disable_reason' => 'nullable|string',
             'tag.hot' => 'nullable|boolean',
             'tag.pop' => 'nullable|boolean',
@@ -94,7 +94,7 @@ class ShortLinkEdit extends Component
             'actual_cpm' => $this->actual_cpm,
             'priority' => $this->priority,
             'time' => $this->time,
-            'status' => $this->status,
+            'is_enable' => $this->is_enable,
             'disable_reason' => $this->disable_reason,
             'tag' => serialize($this->tag),
         ]);

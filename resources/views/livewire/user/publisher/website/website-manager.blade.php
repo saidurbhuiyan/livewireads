@@ -17,11 +17,11 @@
                 <a href="{{$this->domain_protocols[$site->is_secure].$site->domain_name}}">{{$site->domain_name}}</a>
             </td>
             <td class="p-3">
-                <span class="bg-{{$this->is_verified[empty($site->created_at) ? 1 : 0]['color']}}-500 text-white text-sm font-semibold mr-2 px-2.5 py-0.5 rounded">{{ucwords($this->is_verified[empty($site->created_at) ? 1 : 0]['text'])}}</span>
+                <span class="bg-{{!empty($site->created_at) ? 'green' : 'red'}}-500 text-white text-sm font-semibold mr-2 px-2.5 py-0.5 rounded">{{!empty($site->created_at) ? 'Verified' : 'Unverified'}}</span>
             </td>
             <td class="p-3">{{$site->created_at->toFormattedDateString()}}</td>
             <td class="p-3">
-                <span class="bg-{{$this->read_able_status[$site->status]['color']}}-500 text-white text-sm font-semibold mr-2 px-2.5 py-0.5 rounded">{{$this->read_able_status[$site->status]['text']}}</span>
+                <span class="bg-{{$this->read_able_status[$site->status]}}-500 text-white text-sm font-semibold mr-2 px-2.5 py-0.5 rounded capitalize">{{$site->status}}</span>
             </td>
         </tr>
         @endforeach

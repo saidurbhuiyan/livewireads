@@ -18,9 +18,13 @@ class Shortlink extends Model
         'actual_cpm',
         'priority',
         'time',
-        'status',
+        'is_enable',
         'disable_reason',
         'tag',
+    ];
+
+    protected $casts = [
+        'is_enable' => 'boolean',
     ];
 
 

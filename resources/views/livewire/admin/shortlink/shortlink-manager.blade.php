@@ -24,8 +24,8 @@
             <td class="p-3">{{ $short->time }}</td>
             <td class="p-3">{{ $short->created_at->toFormattedDateString() }}</td>
             <td class="p-3">
-                    <span class="bg-{{ $this->readable_status[$short->status]['color'] }}-500 text-white text-sm font-bold px-2.5 py-0.5 rounded">
-                        {{ $this->readable_status[$short->status]['text'] }}
+                    <span class="bg-{{$short->is_enable ? 'green' : 'red' }}-500 text-white text-sm font-bold px-2.5 py-0.5 rounded">
+                        {{ $short->is_enable ? 'Enable' : 'Disable' }}
                     </span>
             </td>
             <td class="p-4">

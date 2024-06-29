@@ -12,14 +12,14 @@ class AppEdit extends Component
     public array $state = [
         'currency_name' => '',
         'conversion_rate' => '',
-        'allow_decimal' => 0,
+        'is_allow_decimal' => false,
         'postback_url' => '',
     ];
 
     public int $site_name;
     public ?string $currency_name = null;
     public ?float $conversion_rate = null;
-    public bool $allow_decimal = false;
+    public bool $is_allow_decimal = false;
     public ?string $postback_url = null;
     public string $domain_name;
     public string $secret_key;
@@ -32,7 +32,7 @@ class AppEdit extends Component
         'currency_name' => 'required|string',
         'conversion_rate' => 'required|numeric|gt:0',
         'postback_url' => 'required|URL',
-        'allow_decimal' => 'required|boolean',
+        'is_allow_decimal' => 'required|boolean',
     ];
 
     protected object $site_data;
@@ -49,7 +49,7 @@ class AppEdit extends Component
         $this->site_data = SiteApp::with('website:id,domain_name,is_secure')->find($id);
         $this->currency_name = $this->site_data->currency_name;
         $this->conversion_rate = $this->site_data->conversion_rate;
-        $this->allow_decimal = $this->site_data->allow_decimal;
+        $this->is_allow_decimal = $this->site_data->is_allow_decimal;
         $this->postback_url = $this->site_data->postback_url;
         $this->site_name = $this->site_data->site_id;
         $this->domain_name = $this->site_data->website->domain_name;
@@ -68,7 +68,7 @@ class AppEdit extends Component
         SiteApp::whereId($this->app_id)->update([
             'currency_name' => $this->currency_name,
             'conversion_rate' => $this->conversion_rate,
-            'allow_decimal' => $this->allow_decimal,
+            'is_allow_decimal' => $this->is_allow_decimal,
             'postback_url' => $this->postback_url,
         ]);
 

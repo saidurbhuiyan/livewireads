@@ -12,10 +12,10 @@ class WebsiteClass
     public function ReadAbleStatus(): array
     {
         return [
-            0 => ['text' => 'pending', 'color'=>'yellow'],
-            1 => ['text' => 'active', 'color'=>'green'],
-            2 => ['text' => 'inactive', 'color'=>'pink'],
-            3 => ['text' => 'rejected', 'color'=>'red']
+            'pending' => 'yellow',
+            'active' => 'green',
+            'inactive' => 'pink',
+            'rejected' => 'red'
         ];
 
     }

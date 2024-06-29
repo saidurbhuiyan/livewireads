@@ -9,7 +9,7 @@
     </x-slot>
 
     <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-        @livewire('admin.shortlink.shortlink-edit', ['id' => $short_link_id])
+        @livewire('admin.short-link.short-link-edit', ['id' => $short_link_id])
     </div>
 
 </x-admin-layout>

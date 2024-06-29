@@ -31,7 +31,7 @@ class WebsiteCreate extends Component
         'protocol' => 'required|integer',
         'domain_name' => 'required|unique:websites,domain_name|domain',
         'monthly_traffic' => 'required|integer|gte:5000',
-        'analytic_source' => 'required|integer|gte:0',
+        'analytic_source' => 'required|string',
     ];
 
     /**

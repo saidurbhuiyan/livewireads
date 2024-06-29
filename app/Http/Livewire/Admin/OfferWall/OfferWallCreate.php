@@ -13,7 +13,7 @@ class OfferWallCreate extends Component
     public ?string $api_key = null;
     public ?int $priority = null;
     public ?int $security_risk = null;
-    public int $status = 0;
+    public bool $is_enable = false;
     public ?string $frame_url = null;
 
     /**
@@ -26,7 +26,7 @@ class OfferWallCreate extends Component
         'api_key' => 'alpha_num|nullable',
         'priority' => 'required|integer|gte:10|lte:100',
         'security_risk' => 'required|integer|gte:0|lte:100',
-        'status' => 'required|boolean',
+        'is_enable' => 'required|boolean',
         'frame_url' => 'string|url|nullable',
     ];
 
@@ -46,7 +46,7 @@ class OfferWallCreate extends Component
             'api_key' => $this->api_key,
             'priority' => $this->priority,
             'security_risk' => $this->security_risk,
-            'status' => $this->status,
+            'is_enable' => $this->is_enable,
             'frame_url' => $this->frame_url,
         ]);
 

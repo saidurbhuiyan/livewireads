@@ -35,7 +35,7 @@
                 {{$app->currency_name}}
             </td>
             <td class="p-3">
-                $1 = {{$app->allow_decimal === 1 ? $app->conversion_rate : number_format($app->conversion_rate, 0, ".", "")}}
+                $1 = {{$app->is_allow_decimal ? $app->conversion_rate : number_format($app->conversion_rate, 0, ".", "")}}
             </td>
             <td class="p-3">
                 {{$app->created_at->toFormattedDateString()}}

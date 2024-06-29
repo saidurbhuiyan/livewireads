@@ -21,16 +21,11 @@ class UserDashboardStatistics extends Component
         // Fetch user-specific data (e.g., websites) and calculate statistics
 
          // Assuming user is authenticated
-        $readableStatus = app(WebsiteClass::class)->ReadAbleStatus();
         $websiteStats = Auth::user()
             ->websites()
             ->select('status', DB::raw('count(*) as total'))
             ->groupBy('status')
             ->get()
-            ->map(function ($item) use ($readableStatus) {
-                $item->status = $readableStatus[$item->status]['text'];
-                return $item;
-            })
             ->pluck('total', 'status')
             ->toArray();
 

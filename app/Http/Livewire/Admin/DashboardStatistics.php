@@ -6,7 +6,6 @@ use App\Models\Offerwall;
 use App\Models\Shortlink;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
-use JsonException;
 use Livewire\Component;
 
 class DashboardStatistics extends Component
@@ -30,11 +29,11 @@ class DashboardStatistics extends Component
      */
     private function getShortLinkStats(): object
     {
-        $shortLinks = Shortlink::select('status', DB::raw('count(*) as total'))->groupBy('status')->get();
+        $shortLinks = Shortlink::select('is_enable', DB::raw('count(*) as total'))->groupBy('is_enable')->get();
 
         $total = $shortLinks->sum('total');
-        $active = $shortLinks->where('status', 1)->sum('total');
-        $inactive = $shortLinks->where('status', 0)->sum('total');
+        $active = $shortLinks->where('is_enable', true)->sum('total');
+        $inactive = $shortLinks->where('is_enable', false)->sum('total');
 
         return (object)['total'=> $total, 'active' => $active, 'inactive' => $inactive];
     }
@@ -45,11 +44,11 @@ class DashboardStatistics extends Component
      */
     private function getOfferWallStats(): object
     {
-        $offerWalls = Offerwall::select('status', DB::raw('count(*) as total'))->groupBy('status')->get();
+        $offerWalls = Offerwall::select('is_enable', DB::raw('count(*) as total'))->groupBy('is_enable')->get();
 
         $total = $offerWalls->sum('total');
-        $active = $offerWalls->where('status', 1)->sum('total');
-        $inactive = $offerWalls->where('status', 0)->sum('total');
+        $active = $offerWalls->where('is_enable', true)->sum('total');
+        $inactive = $offerWalls->where('is_enable', false)->sum('total');
 
         return (object)['total'=> $total, 'active' => $active, 'inactive' => $inactive];
     }

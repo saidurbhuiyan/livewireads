@@ -24,8 +24,9 @@ class UserFactory extends Factory
      * Define the model's default state.
      *
      * @return array
+     * @throws \Exception
      */
-    #[ArrayShape(['username' => "string", 'name' => "string", 'email' => "string", 'email_verified_at' => "\Illuminate\Support\Carbon", 'password' => "string", 'remember_token' => "string"])] public function definition()
+   public function definition()
     {
         return [
             'username' => $this->faker->userName(),
@@ -40,7 +41,7 @@ class UserFactory extends Factory
     /**
      * Indicate that the model's email address should be unverified.
      *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     * @return Factory
      */
     public function unverified()
     {

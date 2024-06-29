@@ -26,16 +26,16 @@ class WebsiteFactory extends Factory
      * @return array<string, mixed>
      * @throws \Exception
      */
-    #[ArrayShape(['user_id' => "int", 'is_secure' => "bool", 'domain_name' => "string", 'monthly_traffic' => "string", 'analytic_source' => "int", 'domain_verified_at' => Carbon::class, 'status' => "int"])] public function definition(): array
+    public function definition(): array
     {
         return [
             'user_id' => random_int(1,11),
             'is_secure' => $this->faker->boolean,
             'domain_name' => $this->faker->domainName(),
             'monthly_traffic' => $this->faker->buildingNumber(),
-            'analytic_source' => random_int(0,3),
+            'analytic_source' => collect(['google analytics', 'similar_web', 'yandex metrics', 'other'])->random(),
             'domain_verified_at' => now(),
-            'status' => random_int(0,3),
+            'status' => collect(['active', 'pending', 'inactive', 'rejected'])->random(),
         ];
     }
 }

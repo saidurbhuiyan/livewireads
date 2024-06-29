@@ -16,7 +16,7 @@ class ShortLinkCreate extends Component
     public ?float $actual_cpm = null;
     public ?int $priority = null;
     public ?int $time = null;
-    public int $status = 0;
+    public bool $is_enable = false;
     public ?string $disable_reason = null;
     public array $tag = [
         'hot' => false,
@@ -37,7 +37,7 @@ class ShortLinkCreate extends Component
         'actual_cpm' => 'required|numeric|between:0,99.99',
         'priority' => 'required|integer|gte:10|lte:100',
         'time' => 'required|integer|gt:0',
-        'status' => 'required|boolean',
+        'is_enable' => 'required|boolean',
         'disable_reason' => 'string|nullable',
         'tag' => 'required|array',
         'tag.hot' => 'boolean',
@@ -64,7 +64,7 @@ class ShortLinkCreate extends Component
             'actual_cpm' => $this->actual_cpm,
             'priority' => $this->priority,
             'time' => $this->time,
-            'status' => $this->status,
+            'is_enable' => $this->is_enable,
             'disable_reason' => $this->disable_reason,
             'tag' => serialize($this->tag),
         ]);
