@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OfferwallHistory extends Model
 {
@@ -19,15 +20,15 @@ class OfferwallHistory extends Model
         'status',
     ];
 
-    public function site_app(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function siteApp(): BelongsTo
     {
         return $this->belongsTo(SiteApp::class, 'site_app_id');
     }
-    public function offerwall(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function offerwall(): BelongsTo
     {
         return $this->belongsTo(Offerwall::class,'offerwall_id');
     }
-    public function network(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function network(): BelongsTo
     {
         return $this->belongsTo(Network::class,'network_id');
     }

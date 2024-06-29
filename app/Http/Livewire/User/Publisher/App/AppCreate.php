@@ -4,8 +4,9 @@ namespace App\Http\Livewire\User\Publisher\App;
 
 use App\Libraries\AppClass;
 use App\Models\SiteApp;
+use Exception;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
-use JetBrains\PhpStorm\ArrayShape;
 use Livewire\Component;
 
 class AppCreate extends Component
@@ -19,33 +20,41 @@ class AppCreate extends Component
     public object $site_name_data;
 
     /**
-     * @throws \Exception
+     * Initialize component state and generate secret key.
+     *
+     * @throws Exception
      */
-    public function mount(){
+    public function mount(): void
+    {
         $this->secret_key = bin2hex(random_bytes(20));
-        $this->site_name_data = (new AppClass())->getUserWebsite();
+        $this->site_name_data = app(AppClass::class)->getUserWebsite();
     }
 
     /**
-     * @throws \Exception
+     * Validation rules for form fields.
+     *
+     * @return array
      */
-
-     protected function rules(): array
+    protected function rules(): array
     {
         return [
             'site_name' => 'required|integer|unique:site_apps,site_id|exists:websites,id,user_id,'.Auth::id(),
             'currency_name' => 'required|string',
             'conversion_rate' => 'required|numeric|gt:0',
-            'postback_url' => 'required|URL',
+            'postback_url' => 'required|url',
             'allow_decimal' => 'required|boolean',
         ];
     }
 
-    public function storeApp(){
-
+    /**
+     * Store the app data after validation.
+     *
+     * @throws Exception
+     */
+    public function storeApp(): void
+    {
         $this->resetErrorBag();
         $this->validate();
-
 
         SiteApp::create([
             'site_id' => $this->site_name,
@@ -57,15 +66,19 @@ class AppCreate extends Component
             'public_key' => bin2hex(random_bytes(15)),
         ]);
 
+        // Generate a new secret key for security reasons
         $this->secret_key = bin2hex(random_bytes(20));
 
-        $this->emit('saved');
-
-
+        // Emit event to notify successful save
+        $this->emit('created');
     }
 
-
-    public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Auth\Access\Response|bool|\Illuminate\Contracts\Foundation\Application
+    /**
+     * Render the Livewire component.
+     *
+     * @return View
+     */
+    public function render(): View
     {
         return view('livewire.user.publisher.app.app-create');
     }

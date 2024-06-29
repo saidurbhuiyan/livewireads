@@ -4,13 +4,12 @@ namespace App\Http\Livewire\User\Publisher\Website;
 
 use App\Libraries\WebsiteClass;
 use App\Models\Website;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class WebsiteCreate extends Component
 {
-
-
     public int $protocol = 0;
     public ?string $domain_name = null;
     public ?int $monthly_traffic = null;
@@ -19,66 +18,75 @@ class WebsiteCreate extends Component
     public array $domainProtocols;
 
     /**
-     *
+     * Confirm that the user wants to add a new website on modal.
      * @var bool
      */
     public bool $confirmingWebsiteAdd = false;
 
+    /**
+     * Validation rules for the component.
+     * @var array|string[]
+     */
     protected array $rules = [
         'protocol' => 'required|integer',
         'domain_name' => 'required|unique:websites,domain_name|domain',
         'monthly_traffic' => 'required|integer|gte:5000',
         'analytic_source' => 'required|integer|gte:0',
-
     ];
 
-
-
-    public function mount(){
-        $website_class = new WebsiteClass();
-        $this->analytic_sources = $website_class->analyticSources();
-        $this->domainProtocols = $website_class->domainProtocols();
+    /**
+     * @return void
+     */
+    public function mount(): void
+    {
+        $websiteClass = app(WebsiteClass::class);
+        $this->analytic_sources = $websiteClass->analyticSources();
+        $this->domainProtocols = $websiteClass->domainProtocols();
     }
 
-
-    public function confirmingWebsiteAdd():void
+    /**
+     * Confirm that the user wants to add a new website.
+     * @return void
+     */
+    public function confirmingWebsiteAdd(): void
     {
         $this->confirmingWebsiteAdd = true;
     }
 
-    public function addWebsite()
+    /**
+     * Add a new website.
+     * @return void
+     */
+    public function addWebsite(): void
     {
         $this->resetErrorBag();
         $this->validate();
 
-       $website = Website::create(
-            [
-                "user_id" => Auth::id(),
-                "is_secure" => $this->protocol,
-                "domain_name" => $this->domain_name,
-                "monthly_traffic"=>$this->monthly_traffic,
-                "analytic_source"=>$this->analytic_source,
-            ]
-        );
+        $website = Website::create([
+            "user_id" => Auth::id(),
+            "is_secure" => $this->protocol,
+            "domain_name" => $this->domain_name,
+            "monthly_traffic" => $this->monthly_traffic,
+            "analytic_source" => $this->analytic_source,
+        ]);
 
-       if ($website){
-           $this->confirmingWebsiteAdd = false;
+        if ($website) {
+            $this->confirmingWebsiteAdd = false;
 
-           $this->state = [
-               'protocol' => 0,
-               'domain_name' => '',
-               'monthly_traffic' => '',
-               'analytic_source' => '',
-           ];
+            $this->protocol = 0;
+            $this->domain_name = '';
+            $this->monthly_traffic = null;
+            $this->analytic_source = null;
 
-           $this->emit('saved');
-
-           $this->emit('refresh-website-manager');
-       }
-
+            $this->emit('refresh-website-manager');
+        }
     }
 
-    public function render(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Contracts\Foundation\Application
+    /**
+     * Render the livewire component.
+     * @return View
+     */
+    public function render(): View
     {
         return view('livewire.user.publisher.website.website-create');
     }

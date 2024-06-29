@@ -3,22 +3,13 @@
 namespace App\Http\Livewire\User\Publisher\App;
 
 use App\Libraries\AppClass;
-use App\Models\User;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 
 class AppManager extends Component
 {
-
-     use WithPagination;
-
-    /**
-     * The component's listeners.
-     *
-     * @var array
-     */
+    use WithPagination;
 
     protected $listeners = [
         'refresh-app-manager' => 'mount',
@@ -26,16 +17,23 @@ class AppManager extends Component
 
     public array $domain_protocols;
 
+    /**
+     * Mount the component.
+     * @return void
+     */
     public function mount(): void
     {
-
-        $this->domain_protocols = (new AppClass())->domainProtocols();
+        $this->domain_protocols = app(AppClass::class)->domainProtocols();
     }
 
-    public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Auth\Access\Response|bool|\Illuminate\Contracts\Foundation\Application
+    /**
+     * Render the component.
+     * @return View
+     */
+    public function render(): View
     {
-        return view('livewire.user.publisher.app.app-manager',  [
-            'app_data' => (new AppClass())->getUserApp()
+        return view('livewire.user.publisher.app.app-manager', [
+            'app_data' => app(AppClass::class)->getUserApp(),
         ]);
     }
 }

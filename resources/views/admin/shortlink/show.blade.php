@@ -16,7 +16,7 @@
                         {{ __('Add Shortlink') }}
                     </a>
                 </div>
-                @livewire('admin.shortlink.shortlink-manager')
+                @livewire('admin.short-link.short-link-manager')
 
             </x-slot>
         </x-card-section>

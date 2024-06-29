@@ -2,6 +2,9 @@
 
 namespace App\Libraries;
 
+use App\Models\SiteApp;
+use Illuminate\Support\Facades\Auth;
+
 class CampaignClass
 {
     public function getUserCampaign()

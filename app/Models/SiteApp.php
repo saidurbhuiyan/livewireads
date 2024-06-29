@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SiteApp extends Model
 {
@@ -20,7 +21,7 @@ class SiteApp extends Model
         'postback_url',
     ];
 
-    public function website(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function website(): BelongsTo
     {
         return $this->belongsTo(Website::class,'site_id');
     }

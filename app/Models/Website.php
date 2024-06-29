@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use \Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Website extends Model
 {
@@ -24,21 +27,17 @@ class Website extends Model
 
 
 
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    public function app(): \Illuminate\Database\Eloquent\Relations\HasOne
-    {
-        return $this->hasOne(SiteApp::class,'site_id');
-    }
 
-    public function apps(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function apps(): HasMany
     {
         return $this->hasMany(SiteApp::class,'site_id');
     }
 
-    public function shortwall(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function shortwall(): HasOne
     {
         return $this->hasOne(Shortlink::class, 'shortwall_id');
     }

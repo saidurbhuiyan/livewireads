@@ -16,7 +16,7 @@
                         {{ __('Add Offerwall') }}
                     </a>
                 </div>
-                @livewire('admin.offerwall.offerwall-manager')
+                @livewire('admin.offer-wall.offer-wall-manager')
 
             </x-slot>
         </x-card-section>

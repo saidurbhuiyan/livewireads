@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Livewire\Admin\Shortlink;
+namespace App\Http\Livewire\Admin\ShortLink;
 
 use App\Models\Shortlink;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
-class ShortlinkCreate extends Component
+class ShortLinkCreate extends Component
 {
     public ?string $display_name = null;
     public ?string $api_url = null;
@@ -20,12 +21,16 @@ class ShortlinkCreate extends Component
     public array $tag = [
         'hot' => false,
         'pop' => false,
-        'adult'=> false
+        'adult' => false,
     ];
 
+    /**
+     * Rules for validation
+     * @var array|string[]
+     */
     protected array $rules = [
-        'display_name' => 'required|string|unique:Shortlinks',
-        'api_url' => 'required|string|URL',
+        'display_name' => 'required|string|unique:shortlinks',
+        'api_url' => 'required|string|url',
         'api_token' => 'required|alpha_num',
         'count_limit' => 'required|integer|gt:0',
         'site_cpm' => 'required|numeric|between:0,99.99',
@@ -34,20 +39,23 @@ class ShortlinkCreate extends Component
         'time' => 'required|integer|gt:0',
         'status' => 'required|boolean',
         'disable_reason' => 'string|nullable',
-        'tag' => 'required_array_keys:hot,pop,adult',
-
+        'tag' => 'required|array',
+        'tag.hot' => 'boolean',
+        'tag.pop' => 'boolean',
+        'tag.adult' => 'boolean',
     ];
 
-
-
-    public function storeShortlink(): void
+    /**
+     * Store shortlink
+     * @return void
+     */
+    public function storeShortLink(): void
     {
-
         $this->resetErrorBag();
 
         $this->validate();
 
-       Shortlink::create([
+        Shortlink::create([
             'display_name' => $this->display_name,
             'api_url' => $this->api_url,
             'api_token' => $this->api_token,
@@ -61,9 +69,14 @@ class ShortlinkCreate extends Component
             'tag' => serialize($this->tag),
         ]);
 
-        $this->emit('saved');
+        $this->emit('created');
     }
-    public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Auth\Access\Response|bool|\Illuminate\Contracts\Foundation\Application
+
+    /**
+     * Render shortlink create
+     * @return View
+     */
+    public function render(): View
     {
         return view('livewire.admin.shortlink.shortlink-create');
     }

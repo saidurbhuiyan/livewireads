@@ -3,17 +3,15 @@
 namespace App\Http\Livewire\User\Publisher\Website;
 
 use App\Libraries\WebsiteClass;
+use App\Models\Website;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class WebsiteManager extends Component
 {
     use WithPagination;
-    /**
-     * The component's listeners.
-     *
-     * @var array
-     */
 
     protected $listeners = [
         'refresh-website-manager' => '$refresh',
@@ -23,18 +21,26 @@ class WebsiteManager extends Component
     public array $domain_protocols;
     public array $is_verified;
 
-    public function mount(){
-        $website = new WebsiteClass();
-        $this->read_able_status = $website->ReadAbleStatus();
-        $this->domain_protocols = $website->domainProtocols();
-        $this->is_verified = $website->isVerified();
+    /**
+     * Mount the component.
+     * @return void
+     */
+    public function mount(): void
+    {
+        $websiteClass = app(WebsiteClass::class);
+        $this->read_able_status = $websiteClass->ReadAbleStatus();
+        $this->domain_protocols = $websiteClass->domainProtocols();
+        $this->is_verified = $websiteClass->isVerified();
     }
 
-
-    public function render(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Contracts\Foundation\Application
+    /**
+     * Render the component.
+     * @return View
+     */
+    public function render(): View
     {
-        return view('livewire.user.publisher.website.website-manager',[
-            'site_data' => (new WebsiteClass())->getAll()
+        return view('livewire.user.publisher.website.website-manager', [
+            'site_data' => Website::where('user_id',Auth::id())->orderBy('id', 'desc')->paginate(10),
         ]);
     }
 }

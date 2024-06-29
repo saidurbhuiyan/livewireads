@@ -3,24 +3,38 @@
 namespace App\Http\Controllers\User\Publisher;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\View\View;
 
 class AppController extends Controller
 {
-    public function show(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Contracts\Foundation\Application
-    {
 
+    /**
+     * user app
+     * @return View
+     */
+    public function show(): View
+    {
         //$website = new WebsiteClass(Auth::id());
         return view('user.publisher.app.show');
 
     }
-    public function create(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Auth\Access\Response|bool|\Illuminate\Contracts\Foundation\Application
-    {
 
+    /**
+     * user app create
+     * @return View
+     */
+    public function create(): View
+    {
         return view('user.publisher.app.create' );
     }
 
 
-    public function edit(int $id): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Auth\Access\Response|bool|\Illuminate\Contracts\Foundation\Application
+    /**
+     * user app edit
+     * @param int $id
+     * @return View
+     */
+    public function edit(int $id): View
     {
         return view('user.publisher.app.edit',['site_id' => $id]);
     }

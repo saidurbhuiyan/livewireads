@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
 
 class DashboardController extends Controller
 {
-    public function index(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Contracts\Foundation\Application
+
+    /**
+     * @return View
+     */
+    public function index(): View
     {
 
         return view('admin.dashboard');

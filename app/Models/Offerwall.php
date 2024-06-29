@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\hasMany;
+use Illuminate\Database\Eloquent\Relations\hasOne;
 
 class Offerwall extends Model
 {
@@ -19,12 +21,8 @@ class Offerwall extends Model
         'status',
     ];
 
-    public function offerwall_history(): \Illuminate\Database\Eloquent\Relations\hasOne
-    {
-        return $this->hasOne(OfferwallHistory::class, 'offerwall_id');
-    }
 
-    public function offerwall_historys(): \Illuminate\Database\Eloquent\Relations\hasMany
+    public function offerwallHistories(): hasMany
     {
         return $this->hasMany(OfferwallHistory::class, 'offerwall_id');
     }

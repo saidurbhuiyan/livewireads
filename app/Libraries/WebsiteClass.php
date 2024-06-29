@@ -2,19 +2,13 @@
 
 namespace App\Libraries;
 
-use App\Models\Website;
-use Illuminate\Support\Facades\Auth;
-
 class WebsiteClass
 {
 
-
-    public function getAll(): object
-    {
-        return Website::where('user_id',Auth::id())->paginate(10);
-    }
-
-
+    /**
+     * Get ReadAble Status color
+     * @return array[]
+     */
     public function ReadAbleStatus(): array
     {
         return [
@@ -26,6 +20,10 @@ class WebsiteClass
 
     }
 
+    /**
+     * is verified or not color
+     * @return array[]
+     */
     public function isVerified(): array
     {
        return [
@@ -36,6 +34,10 @@ class WebsiteClass
 
     }
 
+    /**
+     * Get analytic sources
+     * @return string[]
+     */
     public function analyticSources(): array
     {
         return [
@@ -47,6 +49,10 @@ class WebsiteClass
 
     }
 
+    /**
+     * Get domain protocols
+     * @return string[]
+     */
     public function domainProtocols(): array
     {
         return[

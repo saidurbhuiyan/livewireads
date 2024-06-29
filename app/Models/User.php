@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -56,26 +58,17 @@ class User extends Authenticatable implements MustVerifyEmail
         'profile_photo_url',
     ];
 
-    public function balance(): \Illuminate\Database\Eloquent\Relations\HasOne
-    {
-        return $this->hasOne(Balance::class, 'user_id');
-    }
-
-    public function advertisement(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function advertisement(): HasOne
     {
         return $this->hasOne(Advertisement::class,'user_id');
     }
 
-    public function website(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function websites(): HasMany
     {
-        return $this->hasOne(Website::class,'user_id');
+        return $this->hasMany(Website::class,'user_id');
     }
 
-    public function network_user(): \Illuminate\Database\Eloquent\Relations\HasOne
-    {
-        return $this->hasOne(NetworkUser::class,'user_id');
-    }
-    public function login(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function login(): HasOne
     {
         return $this->hasOne(LoginHistory::class,'user_id');
     }
