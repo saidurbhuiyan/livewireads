@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\SiteApp::factory(200)->create();
         \App\Models\Shortlink::factory(200)->create();
         \App\Models\Offerwall::factory(200)->create();
+        \App\Models\Campaign::factory(200)->create();
 
 
     }

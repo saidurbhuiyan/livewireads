@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use App\Models\Website;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use JetBrains\PhpStorm\ArrayShape;
@@ -29,11 +30,11 @@ class WebsiteFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => random_int(1,11),
+            'user_id' => User::all()->random()->id,
             'is_secure' => $this->faker->boolean,
             'domain_name' => $this->faker->domainName(),
             'monthly_traffic' => $this->faker->buildingNumber(),
-            'analytic_source' => collect(['google analytics', 'similar_web', 'yandex metrics', 'other'])->random(),
+            'analytic_source' => random_int(0,3),
             'domain_verified_at' => now(),
             'status' => collect(['active', 'pending', 'inactive', 'rejected'])->random(),
         ];

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\SiteApp;
+use App\Models\Website;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use JetBrains\PhpStorm\ArrayShape;
 
@@ -28,7 +29,7 @@ class SiteAppFactory extends Factory
     public function definition(): array
     {
         return [
-            'site_id' => random_int(1,100),
+            'site_id' => Website::all()->random()->id,
             'public_key' => $this->faker->md5,
             'private_key'=> $this->faker->sha256,
             'currency_name' => $this->faker->currencyCode(),
