@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\OfferWallController;
+use App\Http\Controllers\Admin\ShortLinkController;
 use App\Http\Controllers\User\CampaignController;
 use App\Http\Controllers\User\Publisher\DashboardController as PublisherDashboardController;
 use App\Http\Controllers\User\DashboardController;
-use App\Http\Controllers\Admin\OfferwallController;
 use App\Http\Controllers\User\Publisher\AppController;
-use App\Http\Controllers\Admin\ShortlinkController;
 use App\Http\Controllers\User\Publisher\WebsiteController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,7 +42,6 @@ Route::middleware([
             Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
             Route::prefix('campaigns')->group(function () {
                 Route::get('/', [CampaignController::class, 'show'])->name('campaigns');
-                Route::get('/create', [CampaignController::class,'create'])->name('campaigns.create');
                 Route::get('/edit/{id}', [CampaignController::class,'edit'])->name('campaigns.edit');
             });
 
@@ -79,16 +78,16 @@ Route::middleware([
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
         Route::prefix('shortlinks')->group(function () {
-            Route::get('/', [ShortlinkController::class, 'show'])->name('shortlinks.show');
-            Route::get('/create', [ShortlinkController::class, 'create'])->name('shortlinks.create');
-            Route::get('/edit/{id}', [ShortlinkController::class, 'edit'])->name('shortlinks.edit');
+            Route::get('/', [ShortLinkController::class, 'show'])->name('shortlinks.show');
+            Route::get('/create', [ShortLinkController::class, 'create'])->name('shortlinks.create');
+            Route::get('/edit/{id}', [ShortLinkController::class, 'edit'])->name('shortlinks.edit');
 
 
         });
         Route::prefix('offerwalls')->group(function () {
-            Route::get('/', [OfferwallController::class, 'show'])->name('offerwalls.show');
-            Route::get('/create', [OfferwallController::class, 'create'])->name('offerwalls.create');
-            Route::get('/edit/{id}', [OfferwallController::class, 'edit'])->name('offerwalls.edit');
+            Route::get('/', [OfferWallController::class, 'show'])->name('offerwalls.show');
+            Route::get('/create', [OfferWallController::class, 'create'])->name('offerwalls.create');
+            Route::get('/edit/{id}', [OfferWallController::class, 'edit'])->name('offerwalls.edit');
 
 
         });

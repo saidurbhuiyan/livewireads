@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\AdsHistory;
+use App\Models\Campaign;
 use Illuminate\Contracts\View\View;
 
 class CampaignController extends Controller
@@ -15,20 +15,9 @@ class CampaignController extends Controller
      */
     public function show(): View
     {
-        $ads_data = AdsHistory::selectRaw('count(*) as total, network_id, clicked')->where('ads_id', 5)->groupBy('network_id', 'clicked')->get();
-
-        return view('user.campaign.show')->with('ads_data',$ads_data);
+        return view('user.campaign.show');
     }
 
-    /**
-     * Create new campaign
-     * @return View
-     */
-    public function create(): View
-    {
-
-        return view('user.campaign.create' );
-    }
 
     /**
      * Edit campaign
@@ -37,6 +26,9 @@ class CampaignController extends Controller
      */
     public function edit(int $id): View
     {
-        return view('user.campaign.edit');
+        $campaign = Campaign::with(['bannerCampaign', 'popCampaign'])
+            ->where('user_id', auth()->user()->id)
+            ->find($id);
+        return view('user.campaign.edit', compact('campaign'));
     }
 }
